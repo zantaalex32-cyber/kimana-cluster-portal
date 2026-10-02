@@ -37,38 +37,29 @@ import {
 } from './permissions';
 
 // Storage keys
-const STORAGE_PREFIX = 'kimana_portal_';
+// Storage keys (Production prefix ensures fresh clean data)
+const STORAGE_PREFIX = 'kimana_portal_prod_v1_';
 const KEYS = {
   CLUSTERS: `${STORAGE_PREFIX}clusters`,
   LOCALITIES: `${STORAGE_PREFIX}localities`,
   PROFILES: `${STORAGE_PREFIX}profiles`,
   USER_ROLES: `${STORAGE_PREFIX}user_roles`,
   ACCESS_REQUESTS: `${STORAGE_PREFIX}access_requests`,
-  ACTIVITIES: `${STORAGE_PREFIX}activities_v2`,
-  GROUPS: `${STORAGE_PREFIX}groups_v2`,
-  DOCUMENTS: `${STORAGE_PREFIX}documents_v2`,
-  ANNOUNCEMENTS: `${STORAGE_PREFIX}announcements_v2`,
+  ACTIVITIES: `${STORAGE_PREFIX}activities`,
+  GROUPS: `${STORAGE_PREFIX}groups`,
+  DOCUMENTS: `${STORAGE_PREFIX}documents`,
+  ANNOUNCEMENTS: `${STORAGE_PREFIX}announcements`,
 };
 
-// Default Seed Constants
+// Primary Cluster Identifier
 export const PRIMARY_CLUSTER_ID = 'c1111111-1111-1111-1111-111111111111';
-export const SECONDARY_CLUSTER_ID = 'c2222222-2222-2222-2222-222222222222';
 
 const SEED_CLUSTERS: Cluster[] = [
   {
     id: PRIMARY_CLUSTER_ID,
     name: 'Kimana Cluster',
-    description: 'Central information and coordination cluster serving Kimana, Namelok, Isinet, and Tikondo.',
+    description: 'Central community information and coordination platform for Kimana, Namelok, Isinet, and Tikondo.',
     region: 'Kajiado South',
-    status: 'active',
-    created_at: new Date('2026-01-01').toISOString(),
-    updated_at: new Date('2026-01-01').toISOString(),
-  },
-  {
-    id: SECONDARY_CLUSTER_ID,
-    name: 'Amboseli Border Cluster',
-    description: 'Secondary demonstration cluster for multi-cluster authorization and boundary verification.',
-    region: 'Amboseli Basin',
     status: 'active',
     created_at: new Date('2026-01-01').toISOString(),
     updated_at: new Date('2026-01-01').toISOString(),
@@ -80,7 +71,7 @@ const SEED_LOCALITIES: Locality[] = [
     id: 'loc-central',
     cluster_id: PRIMARY_CLUSTER_ID,
     name: 'Kimana Central',
-    description: 'Town center, market hub, and central gathering hall.',
+    description: 'Town center, central community gathering hall, and coordination node.',
     status: 'active',
     created_at: new Date('2026-01-01').toISOString(),
     updated_at: new Date('2026-01-01').toISOString(),
@@ -89,7 +80,7 @@ const SEED_LOCALITIES: Locality[] = [
     id: 'loc-isinet',
     cluster_id: PRIMARY_CLUSTER_ID,
     name: 'Isinet Locality',
-    description: 'Northern agricultural sector and junior youth coordination point.',
+    description: 'Northern agricultural sector, children’s classes, and junior youth coordination point.',
     status: 'active',
     created_at: new Date('2026-01-01').toISOString(),
     updated_at: new Date('2026-01-01').toISOString(),
@@ -98,7 +89,7 @@ const SEED_LOCALITIES: Locality[] = [
     id: 'loc-namelok',
     cluster_id: PRIMARY_CLUSTER_ID,
     name: 'Namelok Locality',
-    description: 'Springs community, cultural study circles, and youth mentoring.',
+    description: 'Springs community, neighborhood study circles, and youth mentoring.',
     status: 'active',
     created_at: new Date('2026-01-01').toISOString(),
     updated_at: new Date('2026-01-01').toISOString(),
@@ -107,34 +98,24 @@ const SEED_LOCALITIES: Locality[] = [
     id: 'loc-tikondo',
     cluster_id: PRIMARY_CLUSTER_ID,
     name: 'Tikondo Locality',
-    description: 'Western pastoral area and community devotional clusters.',
-    status: 'active',
-    created_at: new Date('2026-01-01').toISOString(),
-    updated_at: new Date('2026-01-01').toISOString(),
-  },
-  // Locality strictly in Cluster B
-  {
-    id: 'loc-border',
-    cluster_id: SECONDARY_CLUSTER_ID,
-    name: 'Amboseli Gate Locality',
-    description: 'Protected locality in Secondary Cluster B.',
+    description: 'Western pastoral area and community devotional gatherings.',
     status: 'active',
     created_at: new Date('2026-01-01').toISOString(),
     updated_at: new Date('2026-01-01').toISOString(),
   },
 ];
 
-export const DEMO_USERS: Array<{
+export const INITIAL_USERS: Array<{
   profile: Profile;
   role: RoleType;
   passwordHint: string;
 }> = [
   {
     profile: {
-      id: 'usr-superadmin',
-      full_name: 'Dr. Tariq Mwalimu',
-      email: 'superadmin@kimanaportal.org',
-      phone: '+254 711 000 001',
+      id: 'usr-wekesa',
+      full_name: 'Shoghi Wekesa',
+      email: 'wekesashoghi@gmail.com',
+      phone: '+254 700 000 000',
       cluster_id: PRIMARY_CLUSTER_ID,
       locality_id: 'loc-central',
       status: 'active',
@@ -142,7 +123,7 @@ export const DEMO_USERS: Array<{
       updated_at: new Date('2026-01-01').toISOString(),
     },
     role: 'super_admin',
-    passwordHint: 'superadmin123',
+    passwordHint: 'admin123',
   },
   {
     profile: {
@@ -189,49 +170,12 @@ export const DEMO_USERS: Array<{
     role: 'member',
     passwordHint: 'member123',
   },
-  {
-    profile: {
-      id: 'usr-pending',
-      full_name: 'David Omondi',
-      email: 'applicant@kimanaportal.org',
-      phone: '+254 755 000 005',
-      cluster_id: PRIMARY_CLUSTER_ID,
-      locality_id: 'loc-central',
-      status: 'pending',
-      created_at: new Date('2026-02-01').toISOString(),
-      updated_at: new Date('2026-02-01').toISOString(),
-    },
-    role: 'public',
-    passwordHint: 'applicant123',
-  },
 ];
 
-const SEED_ACCESS_REQUESTS: AccessRequest[] = [
-  {
-    id: 'req-001',
-    cluster_id: PRIMARY_CLUSTER_ID,
-    full_name: 'David Omondi',
-    email: 'applicant@kimanaportal.org',
-    phone: '+254 755 000 005',
-    locality_id: 'loc-central',
-    reason: 'Resident of Kimana Central for 4 years. Requesting access to join devotional gatherings and community study circles.',
-    status: 'pending',
-    created_at: new Date('2026-02-01T08:30:00Z').toISOString(),
-    updated_at: new Date('2026-02-01T08:30:00Z').toISOString(),
-  },
-  {
-    id: 'req-002',
-    cluster_id: PRIMARY_CLUSTER_ID,
-    full_name: 'Beatrice Nashipae',
-    email: 'beatrice.nashipae@example.com',
-    phone: '+254 788 123 456',
-    locality_id: 'loc-isinet',
-    reason: 'Volunteer educator in Isinet requesting access to cluster educational materials and activity schedule.',
-    status: 'pending',
-    created_at: new Date('2026-02-03T11:15:00Z').toISOString(),
-    updated_at: new Date('2026-02-03T11:15:00Z').toISOString(),
-  },
-];
+// Backwards-compatible alias for existing imports
+export const DEMO_USERS = INITIAL_USERS;
+
+const SEED_ACCESS_REQUESTS: AccessRequest[] = [];
 
 // ==============================================================================
 // PHASE 2 SEED DATA
