@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="portalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#022c22" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#portalGrad)" />
+  <!-- Mount Kilimanjaro / Kimana Ridge Silhouette -->
+  <path d="M80 360 L210 170 L280 260 L350 200 L432 360 Z" fill="#047857" opacity="0.35"/>
+  <!-- Central Emblem: Community Sun / Gathering Node in warm gold and emerald -->
+  <circle cx="256" cy="180" r="46" fill="url(#accentGrad)" />
+  <circle cx="256" cy="180" r="30" fill="#f0fdf4" />
+  <circle cx="256" cy="180" r="16" fill="#047857" />
+  <!-- Connecting Arcs of Community in Sage and Emerald -->
+  <path d="M110 380 C 180 310, 332 310, 402 380" stroke="#34d399" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path d="M150 415 C 210 365, 302 365, 362 415" stroke="#a7f3d0" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.6"/>
+</svg>

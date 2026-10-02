@@ -1,0 +1,6 @@
+{
+  "name": "Kimana Cluster Portal",
+  "description": "Secure, organized information and coordination portal for the Kimana Cluster community.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
